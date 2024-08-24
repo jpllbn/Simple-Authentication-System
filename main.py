@@ -19,52 +19,8 @@ Error Handling:
 If the file doesn't exist when trying to read the user data, handle the FileNotFoundError and create a new file.
 Handle incorrect login attempts and raise custom exceptions if the username is not found or the password is incorrect.
 """
-
-account = {}
-
-# Registration function
-def UserRegistration():
-        try:
-            user = input("Enter a username: ")
-            passwd = input("Enter a password: ")
-            print('-' * 40)
-
-            account["user"] = user
-            account["password"] = passwd
-
-            with open('users.txt', 'a', encoding='utf-8') as WriteUser:
-                WriteUser.writelines([account["user"], ",", account["password"], "\n"])
-                print("Registered Successfully")
-                for line in WriteUser:
-                    line = line.strip()
-                    account["user"], account["password"] = line.split(',')
-        except ValueError:
-            print("")
-
-# Login function
-def UserLogin():
-    try:
-        user = input("Enter a username: ")
-        passwd = input("Enter a password: ")
-        print('-' * 40)
-
-        account["user"] = user
-        account["password"] = passwd
-
-        with open('users.txt', 'r', encoding='utf-8') as WriteUser:
-
-            for line in WriteUser:
-                line = line.strip()
-                account["user"], account["password"] = line.split(',')
-
-        if user == account["user"] and passwd == account["password"]:
-            print("Login Successfully \n")
-        else:
-            print("Log in Failed. Try Again")
-            print('-' * 40)
-    except ValueError:
-        print("")
-
+from AccountCreation import UserRegistration
+from AccountCreation import UserLogin
 
 # Main function
 def main():
@@ -87,7 +43,6 @@ def main():
 
             if user == 1:
                 UserRegistration()
-                continue
             elif user == 2:
                 UserLogin()
             else:
@@ -95,5 +50,7 @@ def main():
         except ValueError:
             print("Invalid Input. Enter a valid Value!.")
             print('-' * 40)
-
+        except FileNotFoundError:
+            print("File does not Exist.")
+            print('-' * 40)
 main()
