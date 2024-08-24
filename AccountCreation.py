@@ -23,8 +23,8 @@ def UserLogin():
         passwd = input("Enter a password: ")
         print('-' * 40)
 
-        with open('users.txt', 'r', encoding='utf-8') as WriteUser:
-            for line in WriteUser:
+        with open('users.txt', 'r', encoding='utf-8') as ReadUser:
+            for line in ReadUser:
                 registered_user, registered_password = line.strip().split(',')
 
                 if user == registered_user and passwd == registered_password:
